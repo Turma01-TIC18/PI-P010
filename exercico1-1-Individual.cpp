@@ -46,7 +46,6 @@ int main() {
     vector<float> nota1;
     vector<float> nota2;
 
-    
 
     
 

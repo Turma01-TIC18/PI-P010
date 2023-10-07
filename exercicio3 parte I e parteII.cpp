@@ -139,14 +139,46 @@ void incluirAluno(vector<string>& nomes, vector<float>& nota1, vector<float>& no
 
     cout << "Deseja incluir Notas(s/n) ?";
     cin >> opcao;
+
     if(opcao == 's' || opcao == 'S') {
-        imprimir(nomes);
-        incluirNotas(nota1, nota2);
+        while (numAlunos > 0)
+        {
+            imprimir(nomes);
+            incluirNotas(nota1, nota2);
+            --numAlunos;
+        }
+        
     }
 
     
 }
 
+void calcularMedia(vector<float>& media,vector<float>& nota1, vector<float>& nota2) {
+
+    float soma=0;
+
+    if(!nota1.empty() || !nota2.empty()) {
+        cout << "-------------------------------------\n";
+        for(int i = 1; i <= nota1.size(); i++) {
+            
+                soma += (nota1[i-1] + nota2[i-1]) / 2;
+
+                media.push_back(soma);
+
+                soma = 0;
+                if(media.at(i-1) >= 7) {
+                    cout << "Media - Aluno " << i << ": " << fixed << setprecision(2) << media.at(i-1) << " - Aprovado" << endl;
+
+                }else {
+                    cout << "Media - Aluno " << i << ": " << fixed << setprecision(2) << media.at(i-1) << " - Reprovado" << endl;
+                }
+
+        }
+        cout << "-------------------------------------\n";
+    }
+    
+
+}
 
 
 void imprimirNotas(vector<float>& nota1, vector<float> nota2) {
@@ -178,7 +210,6 @@ void imprimirNotas(vector<float>& nota1, vector<float> nota2) {
 
 int main() {
     string troca;
-    float notas;
     bool prosseguir = true;
     int opcao;
     int n;
@@ -186,6 +217,7 @@ int main() {
     vector<string> nomes;
     vector<float> nota1;
     vector<float> nota2;
+    vector<float> medias;
 
     n=nomes.size();
 
@@ -220,6 +252,7 @@ while(prosseguir) {
     case 5:
         imprimir(nomes);
         imprimirNotas(nota1, nota2);
+        calcularMedia(medias, nota1, nota2);
         break;
     case 0:
         prosseguir = opcao == 0? false : true;
